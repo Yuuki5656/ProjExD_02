@@ -28,7 +28,7 @@ def check_bound(scr_rct: pg.Rect, obj_rct: pg.Rect) -> tuple[bool, bool]:
 
 def main():
 
-    pg.display.set_caption("逃げろ！こうかとん")
+    pg.display.set_caption("逃げろ！こうかとん")  # 追加機能1
     screen = pg.display.set_mode((1600, 900))
     clock = pg.time.Clock()
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
@@ -71,11 +71,11 @@ def main():
 
         key_lst = pg.key.get_pressed()
 
-        for k, mv in delta.items():
+        for k, mv in delta.items():  #　練習3
             if key_lst[k]:
                 kk_rct.move_ip(mv)
 
-        tup_lst = []
+        tup_lst = []  # 追加機能1
         for key, tup in delta.items():
             if key_lst[key]:
                 tup_lst.append(tup)
