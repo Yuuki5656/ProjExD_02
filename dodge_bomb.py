@@ -28,12 +28,14 @@ def check_bound(scr_rct: pg.Rect, obj_rct: pg.Rect) -> tuple[bool, bool]:
 
 
 def main():
+
     pg.display.set_caption("逃げろ！こうかとん")
     screen = pg.display.set_mode((1600, 900))
     clock = pg.time.Clock()
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
+    kk_img_r = pg.transform.flip(kk_img, True, False)
     kk_rct = kk_img.get_rect()
     kk_rct.center = 900, 400
     tmr = 0
@@ -46,6 +48,19 @@ def main():
     vx, vy = +1, +1
     bb_rct = bb_img.get_rect()
     bb_rct.center = x, y
+
+    kadai1 = {
+            (0, 0):pg.transform.rotozoom(kk_img, 0, 1.0),
+            (-1, 0):pg.transform.rotozoom(kk_img, 0, 1.0),
+            (-1, +1):pg.transform.rotozoom(kk_img, 45, 1.0),
+            (0, +1):pg.transform.rotozoom(kk_img, 90, 1.0),
+            (-1, -1):pg.transform.rotozoom(kk_img,-45,1.0),
+            (0, -1):pg.transform.rotozoom(kk_img_r, 90, 1.0),
+            (+1, -1):pg.transform.rotozoom(kk_img_r, 45, 1.0),
+            (+1, 0):pg.transform.rotozoom(kk_img_r,0, 1.0),
+            (+1, +1):pg.transform.rotozoom(kk_img_r,-45, 1.0),
+            (0, +1):pg.transform.rotozoom(kk_img_r,-90, 1.0),
+             }
     
     
     while True:
@@ -56,16 +71,34 @@ def main():
         tmr += 1
 
         key_lst = pg.key.get_pressed()
+
         for k, mv in delta.items():
             if key_lst[k]:
                 kk_rct.move_ip(mv)
+
+        tup_lst = []
+        for key, tup in delta.items():
+            if key_lst[key]:
+                kk_rct.move_ip(tup)
+                tup_lst.append(tup)
+
+        tu_x = 0
+        tu_y = 0
+        for tu in tup_lst:
+            tu_x = tu[0]
+            tu_y = tu[1]
+        kk_img = kadai1[tu_x,tu_y]
+
         if check_bound(screen.get_rect(),kk_rct) != (True, True):
             for k, mv in delta.items():
                 if key_lst[k]:
                     kk_rct.move_ip(-mv[0],-mv[1])
 
         screen.blit(bg_img, [0, 0])
-        screen.blit(kk_img, kk_rct)
+        screen.blit(kk_img, kk_rct)   
+
+
+
         bb_rct.move_ip(vx, vy)
         yoko, tate = check_bound(screen.get_rect(), bb_rct)
         if not yoko:
