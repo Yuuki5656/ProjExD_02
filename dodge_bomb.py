@@ -28,7 +28,7 @@ def check_bound(scr_rct: pg.Rect, obj_rct: pg.Rect) -> tuple[bool, bool]:
 
 def main():
 
-    pg.display.set_caption("逃げろ！こうかとん")  # 追加機能1
+    pg.display.set_caption("逃げろ！こうかとん")  
     screen = pg.display.set_mode((1600, 900))
     clock = pg.time.Clock()
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
@@ -48,6 +48,7 @@ def main():
     bb_rct = bb_img.get_rect()
     bb_rct.center = x, y
 
+# 追加機能1
     kadai1 = {
             (0, 0):pg.transform.rotozoom(kk_img, 0, 1.0),
             (-1, 0):pg.transform.rotozoom(kk_img, 0, 1.0),
@@ -87,7 +88,7 @@ def main():
             tu_y += tu[1]
         kk_img = kadai1[tu_x,tu_y]
 
-        if check_bound(screen.get_rect(),kk_rct) != (True, True):
+        if check_bound(screen.get_rect(),kk_rct) != (True, True):  # 練習5
             for k, mv in delta.items():
                 if key_lst[k]:
                     kk_rct.move_ip(-mv[0],-mv[1])
@@ -104,7 +105,7 @@ def main():
         if not tate:
             vy *= -1 
         screen.blit(bb_img, bb_rct)
-        if kk_rct.colliderect(bb_rct):
+        if kk_rct.colliderect(bb_rct):  #　練習6
             return
 
         pg.display.update()
