@@ -14,8 +14,8 @@ delta = {
 def check_bound(scr_rct: pg.Rect, obj_rct: pg.Rect) -> tuple[bool, bool]:
     """
     オブジェクトが画面内か画面外かを判定し、真理値タプルを返す
-    引数１ area : 画面Surfaceのrect
-    引数２ pbj : オブジェクト（爆弾、こうかとん）Surfaceのrect
+    引数１ scr_rct : 画面Surfaceのrect
+    引数２ obj_rct : オブジェクト（爆弾、こうかとん）Surfaceのrect
     戻り値 : 横方向、縦方向のはみ出し判定結果（画面内: True/画面外: False）
     """
     yoko, tate = True, True
