@@ -1,5 +1,4 @@
-import random
-
+import random  #issue1
 import sys
 
 import pygame as pg
@@ -79,14 +78,13 @@ def main():
         tup_lst = []
         for key, tup in delta.items():
             if key_lst[key]:
-                kk_rct.move_ip(tup)
                 tup_lst.append(tup)
 
         tu_x = 0
         tu_y = 0
         for tu in tup_lst:
-            tu_x = tu[0]
-            tu_y = tu[1]
+            tu_x += tu[0]
+            tu_y += tu[1]
         kk_img = kadai1[tu_x,tu_y]
 
         if check_bound(screen.get_rect(),kk_rct) != (True, True):
